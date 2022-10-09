@@ -2,8 +2,9 @@
 Authors: Jiang Yu Nguwi and Nicolas Privault.
 
 If this code is used for research purposes, please cite as \
-J.Y. Nguwi, G. Penent, and N. Privault.
+J.Y. Nguwi and N. Privault.
 A deep learning approach to the probabilistic numerical solution of path-dependent partial differential equations.
+*arXiv preprint arXiv:2209.15010 (2022)*.
 
 The paper is available [here](doc/m.pdf).
 <br/><br/>
