@@ -498,9 +498,48 @@ class Config:
 
 
 ########## Section main ####################
-def main(eqn_name, var_reduction):
-    T = 0.1
-    N = 10
+def simulate_close_form(eqn_name, T=0.1):
+
+    N = int(T/.01)
+    # float64 for a better precision, float32 for smaller memory
+    dtype = tf.float32
+
+    batch_size = 100000
+    train_steps = 900
+    lr_boundaries = [2*train_steps//3, 5*train_steps//6]
+    lr_values = [0.1, 0.01, 0.001]
+
+    expr_name = 'logs/'
+    expr_name += eqn_name
+    expr_name += f'_mc_T_{T}.csv'
+
+    _file = open(expr_name, 'w')
+    _file.write('d,T,N,run,y0,runtime\n')
+
+    # not doing d > 1 for large N
+    d_arrays = [1, 10, 100] if N < 100 else [1]
+    for d in d_arrays:
+        config = Config(d, T, N, dtype, batch_size, train_steps,
+                        lr_boundaries, lr_values, eqn_name, False,
+                        1, 1, 1)
+        eqn = globals()[eqn_name](config)
+
+        # 10 independent runs
+        for run in range(10):
+            # run on CPU to obtain reproducible results
+            tf.random.set_seed(run)
+
+            t_0 = time.time()
+            x, dw = eqn.sde(N - 1)
+            v0 = tf.reduce_mean(eqn.phi(x)).numpy() * np.exp(-eqn.r * T)
+            t_1 = time.time()
+            _file.write('%i, %f, %i, %i, %f, %f\n'
+                        % (d, T, N, run, v0, t_1 - t_0))
+            print(d, T, N, run, v0, t_1 - t_0)
+
+
+def main(eqn_name, var_reduction, T=0.1):
+    N = int(T/.01)
     # float64 for a better precision, float32 for smaller memory
     dtype = tf.float32
 
@@ -515,12 +554,14 @@ def main(eqn_name, var_reduction):
     if not var_reduction: expr_name += 'no_'
     expr_name += 'var_reduction_'
     expr_name += eqn_name
-    expr_name += '.csv'
+    expr_name += f'_T_{T}.csv'
 
     _file = open(expr_name, 'w')
     _file.write('d,T,N,run,y0,runtime\n')
 
-    for d in [1, 10, 100]:
+    # not doing d > 1 for large N
+    d_arrays = [1, 10, 100] if N < 50 else [1]
+    for d in d_arrays:
         y_neurons = [d+10, d+10, 1]
         z_neurons = [d+10, d+10, d]
         g_neurons = [d+10, d+10, d*d]
@@ -547,8 +588,12 @@ def main(eqn_name, var_reduction):
     _file.close()
 
 if __name__ == '__main__':
+    simulate_close_form('AsianOption', T=1)
+    simulate_close_form('AsianOption')
+    simulate_close_form('BarrierOption')
     # choice of ControlProblem, AsianOption, and BarrierOption
     # for other problems, add a new class under Section equation
+    main('AsianOption', False, T=1)
     main('AsianOption', False)
     main('BarrierOption', False)
     main('ControlProblem', True)

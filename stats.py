@@ -6,13 +6,13 @@ os.chdir('./logs')
 file_log_path = 'lit_compare.csv'
 
 exact_sol_asian = {}
-df = pd.read_csv("mc_asian.csv")
+df = pd.read_csv("AsianOption_mc_T_0.1.csv")
 for dd in [1, 10, 100]:
     tmp = df.loc[df['d'] == dd]
     exact_sol_asian[dd] = tmp['y0'].mean()
 
 exact_sol_barrier = {}
-df = pd.read_csv("mc_barrier.csv")
+df = pd.read_csv("BarrierOption_mc_T_0.1.csv")
 for dd in [1, 10, 100]:
     tmp = df.loc[df['d'] == dd]
     exact_sol_barrier[dd] = tmp['y0'].mean()
@@ -20,17 +20,17 @@ for dd in [1, 10, 100]:
 exact_sol_control = 1
 
 
-control_csv = [ 'no_var_reduction_ControlProblem.csv',
-                'var_reduction_ControlProblem.csv',
+control_csv = [ 'no_var_reduction_ControlProblem_T_0.1.csv',
+                'var_reduction_ControlProblem_T_0.1.csv',
                 'no_var_reduction_xiaolu_control.csv', 'xiaolu_control.csv',
                 'galerkin_control.csv' ]
-asian_csv = [ 'no_var_reduction_AsianOption.csv',
-                'no_var_reduction_AsianOption.csv',  # not used
+asian_csv = [ 'no_var_reduction_AsianOption_T_0.1.csv',
+                'no_var_reduction_AsianOption_T_0.1.csv',  # not used
                 'no_var_reduction_xiaolu_asian.csv', 'xiaolu_asian.csv',
                 'galerkin_asian.csv', 'signature_asian.csv',
                 'weinan_asian.csv', 'ariel_asian.csv' ]
-barrier_csv = [ 'no_var_reduction_BarrierOption.csv',
-                'no_var_reduction_BarrierOption.csv',  # not used
+barrier_csv = [ 'no_var_reduction_BarrierOption_T_0.1.csv',
+                'no_var_reduction_BarrierOption_T_0.1.csv',  # not used
                 'no_var_reduction_xiaolu_barrier.csv', 'xiaolu_barrier.csv',
                 'galerkin_barrier.csv', 'signature_barrier.csv' ]
 
