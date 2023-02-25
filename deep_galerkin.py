@@ -319,7 +319,7 @@ for which_type in [ 'galerkin_asian', 'galerkin_barrier', 'galerkin_control' ]:
                 # adam optimizer
                 optimizer = tf.train.AdamOptimizer(learning_rate = learning_rate)
                 gvs = optimizer.compute_gradients(loss)
-                capped_gvs = [(tf.clip_by_value(grad, -5., 5.) if grad is not None else None, var) for grad, var in gvs]
+                capped_gvs = [(tf.clip_by_norm(grad, 5.) if grad is not None else None, var) for grad, var in gvs]
                 train_op = optimizer.apply_gradients(capped_gvs, global_step=global_step)
 
                 init = tf.global_variables_initializer()
