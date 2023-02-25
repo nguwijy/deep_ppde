@@ -11,6 +11,12 @@ for dd in [1, 10, 100]:
     tmp = df.loc[df['d'] == dd]
     exact_sol_asian[dd] = tmp['y0'].mean()
 
+exact_sol_asian_T_1 = {}
+df = pd.read_csv("AsianOption_mc_T_1.csv")
+for dd in [1]:
+    tmp = df.loc[df['d'] == dd]
+    exact_sol_asian_T_1[dd] = tmp['y0'].mean()
+
 exact_sol_barrier = {}
 df = pd.read_csv("BarrierOption_mc_T_0.1.csv")
 for dd in [1, 10, 100]:
@@ -25,13 +31,19 @@ control_csv = [ 'no_var_reduction_ControlProblem_T_0.1.csv',
                 'no_var_reduction_xiaolu_control.csv', 'xiaolu_control.csv',
                 'galerkin_control.csv' ]
 asian_csv = [ 'no_var_reduction_AsianOption_T_0.1.csv',
-                'no_var_reduction_AsianOption_T_0.1.csv',  # not used
-                'no_var_reduction_xiaolu_asian.csv', 'xiaolu_asian.csv',
-                'galerkin_asian.csv', 'signature_asian.csv',
-                'weinan_asian.csv', 'ariel_asian.csv' ]
+              'no_var_reduction_AsianOption_T_0.1.csv',  # not used
+              'xiaolu_asian.csv', 'xiaolu_asian.csv',
+              'galerkin_asian.csv', 'signature_asian.csv',
+              'weinan_asian.csv', 'ariel_asian.csv' ]
+asian_csv_T_1 = [ 'no_var_reduction_AsianOption_T_1.csv',
+                'no_var_reduction_AsianOption_T_1.csv',  # not used
+                'xiaolu_asian_T_1.csv', 'xiaolu_asian_T_1.csv',
+                'signature_asian_T_1.csv',  # TODO: we put signature tentatively here for the code to run, but this line should be changed to 'galerkin_asian_T_1.csv',
+                'signature_asian_T_1.csv',
+                'weinan_asian_T_1.csv', 'ariel_asian_T_1.csv' ]
 barrier_csv = [ 'no_var_reduction_BarrierOption_T_0.1.csv',
                 'no_var_reduction_BarrierOption_T_0.1.csv',  # not used
-                'no_var_reduction_xiaolu_barrier.csv', 'xiaolu_barrier.csv',
+                'xiaolu_barrier.csv', 'xiaolu_barrier.csv',
                 'galerkin_barrier.csv', 'signature_barrier.csv' ]
 
 scheme_name = [ 'Deep PPDE using \eqref{eq:deep_scheme_nonlinear}',
@@ -96,6 +108,30 @@ for ii in range(len(asian_csv)):
         with open(file_log_path, 'a') as f:
             f.write('{:s} & {:s} & {:d} & {:.7g} & {:.2E} & {:.7g} & {:.2E} & {:d} \\\\\n'
                     .format(name, deep, dd, L1, sd, exact_sol_asian[dd], error_L1,
+                            int(round(avg_runtime))))
+    with open(file_log_path, 'a') as f:
+        f.write('\hline\n')
+
+with open(file_log_path, 'a') as f:
+    f.write('\n\n\n\hline\n')
+
+for ii in range(len(asian_csv_T_1)):
+    csv = asian_csv_T_1[ii]
+    name = scheme_name[ii]
+    deep = deep_or_not[ii]
+    for dd in [1]:
+        df = pd.read_csv(csv)
+        df = df.loc[df['d'] == dd]
+        relative_error = abs( df['y0'] - exact_sol_asian_T_1[dd])/exact_sol_asian_T_1[dd]
+        df['relative_error'] = relative_error
+        L1 = df['y0'].mean()
+        sd = df['y0'].std()
+        error_L1 = df['relative_error'].mean()
+        error_sd = df['relative_error'].std()
+        avg_runtime = df['runtime'].mean()
+        with open(file_log_path, 'a') as f:
+            f.write('{:s} & {:s} & {:d} & {:.7g} & {:.2E} & {:.7g} & {:.2E} & {:d} \\\\\n'
+                    .format(name, deep, dd, L1, sd, exact_sol_asian_T_1[dd], error_L1,
                     int(round(avg_runtime))))
     with open(file_log_path, 'a') as f:
         f.write('\hline\n')

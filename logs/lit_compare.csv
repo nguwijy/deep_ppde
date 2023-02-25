@@ -30,9 +30,9 @@ Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 0.3008159
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 10 & 0.3010345 & 4.08E-04 & 0.3002024 & 2.77E-03 & 31 \\
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 100 & 0.3006346 & 1.28E-04 & 0.3001993 & 1.45E-03 & 35 \\
 \hline
-\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3002928 & 2.11E-04 & 0.3002021 & 5.47E-04 & 1 \\
-\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 10 & 0.3002143 & 4.59E-05 & 0.3002024 & 1.41E-04 & 2 \\
-\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 100 & 0.3001983 & 3.37E-05 & 0.3001993 & 8.23E-05 & 24 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3002768 & 2.23E-04 & 0.3002021 & 4.77E-04 & 1 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 10 & 0.3002137 & 6.07E-05 & 0.3002024 & 1.70E-04 & 2 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 100 & 0.3001923 & 2.65E-05 & 0.3001993 & 7.50E-05 & 23 \\
 \hline
 \cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 1 & 0.3002768 & 2.23E-04 & 0.3002021 & 4.77E-04 & 1 \\
 \cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 10 & 0.3002137 & 6.07E-05 & 0.3002024 & 1.70E-04 & 2 \\
@@ -52,6 +52,26 @@ Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 100 & 0.30063
 
 
 \hline
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 1 & 0.3080988 & 2.15E-02 & 0.3019783 & 5.96E-02 & 916 \\
+\hline
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 0.3080988 & 2.15E-02 & 0.3019783 & 5.96E-02 & 916 \\
+\hline
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3019605 & 6.09E-04 & 0.3019783 & 1.79E-03 & 11 \\
+\hline
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 1 & 0.3019605 & 6.09E-04 & 0.3019783 & 1.79E-03 & 11 \\
+\hline
+\cite{saporito2020pdgm} & Y & 1 & 0.3023886 & 3.30E-03 & 0.3019783 & 8.20E-03 & 28 \\
+\hline
+\cite{sabate2020solving} & Y & 1 & 0.3023886 & 3.30E-03 & 0.3019783 & 8.20E-03 & 28 \\
+\hline
+\cite{han2018solving} & Y & 1 & 0.3020448 & 3.47E-05 & 0.3019783 & 2.20E-04 & 1028 \\
+\hline
+\cite{beck2019deep} & Y & 1 & 0.3036672 & 3.88E-03 & 0.3019783 & 1.09E-02 & 431 \\
+\hline
+
+
+
+\hline
 Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 1 & 0.3019161 & 1.97E-03 & 0.3007008 & 5.92E-03 & 31 \\
 Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 10 & 0.3017532 & 5.44E-04 & 0.3006973 & 3.51E-03 & 31 \\
 Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 100 & 0.3016375 & 1.98E-04 & 0.3007003 & 3.12E-03 & 35 \\
@@ -60,9 +80,9 @@ Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 0.3019161
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 10 & 0.3017532 & 5.44E-04 & 0.3006973 & 3.51E-03 & 31 \\
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 100 & 0.3016375 & 1.98E-04 & 0.3007003 & 3.12E-03 & 35 \\
 \hline
-\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3006738 & 2.81E-04 & 0.3007008 & 7.72E-04 & 1 \\
-\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 10 & 0.3007255 & 1.34E-04 & 0.3006973 & 3.56E-04 & 2 \\
-\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 100 & 0.3035602 & 3.74E-03 & 0.3007003 & 1.05E-02 & 23 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3006035 & 3.69E-04 & 0.3007008 & 1.09E-03 & 1 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 10 & 0.3006808 & 1.29E-04 & 0.3006973 & 3.45E-04 & 2 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 100 & 0.3005694 & 6.94E-03 & 0.3007003 & 1.66E-02 & 21 \\
 \hline
 \cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 1 & 0.3006035 & 3.69E-04 & 0.3007008 & 1.09E-03 & 1 \\
 \cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 10 & 0.3006808 & 1.29E-04 & 0.3006973 & 3.45E-04 & 2 \\
