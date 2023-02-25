@@ -1,8 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
-# import tensorflow.compat.v1 as tf
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import time as ttt
 import os
 import pprint
@@ -319,8 +318,9 @@ for which_type in [ 'galerkin_asian', 'galerkin_barrier', 'galerkin_control' ]:
                     50, 0.98, staircase=True), tf.constant(0.00001))
                 # adam optimizer
                 optimizer = tf.train.AdamOptimizer(learning_rate = learning_rate)
-                optimizer = tf.contrib.estimator.clip_gradients_by_norm(optimizer, clip_norm=5.0)
-                train_op = optimizer.minimize(loss, global_step=global_step)
+                gvs = optimizer.compute_gradients(loss)
+                capped_gvs = [(tf.clip_by_value(grad, -5., 5.) if grad is not None else None, var) for grad, var in gvs]
+                train_op = optimizer.apply_gradients(capped_gvs, global_step=global_step)
 
                 init = tf.global_variables_initializer()
                 sess.run(init)
