@@ -244,7 +244,7 @@ def main(sess_iter, dim):
     tf.reset_default_graph()
     with tf.Session() as sess:
         tf.set_random_seed(1)
-        print("Begin to solve Allen-Cahn equation")
+        print("Begin to solve...")
         model = SolveAllenCahn(sess, dim)
         model.build()
         model.train()
