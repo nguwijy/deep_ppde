@@ -38,8 +38,7 @@ asian_csv = [ 'no_var_reduction_AsianOption_T_0.1.csv',
 asian_csv_T_1 = [ 'no_var_reduction_AsianOption_T_1.csv',
                 'no_var_reduction_AsianOption_T_1.csv',  # not used
                 'xiaolu_asian_T_1.csv', 'xiaolu_asian_T_1.csv',
-                'signature_asian_T_1.csv',  # TODO: we put signature tentatively here for the code to run, but this line should be changed to 'galerkin_asian_T_1.csv',
-                'signature_asian_T_1.csv',
+                'galerkin_asian_T_1.csv', 'signature_asian_T_1.csv',
                 'weinan_asian_T_1.csv', 'ariel_asian_T_1.csv' ]
 barrier_csv = [ 'no_var_reduction_BarrierOption_T_0.1.csv',
                 'no_var_reduction_BarrierOption_T_0.1.csv',  # not used

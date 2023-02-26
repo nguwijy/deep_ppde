@@ -60,7 +60,7 @@ Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 0.3080988
 \hline
 \cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 1 & 0.3019605 & 6.09E-04 & 0.3019783 & 1.79E-03 & 11 \\
 \hline
-\cite{saporito2020pdgm} & Y & 1 & 0.3023886 & 3.30E-03 & 0.3019783 & 8.20E-03 & 28 \\
+\cite{saporito2020pdgm} & Y & 1 & 0.3099371 & 8.49E-03 & 0.3019783 & 2.98E-02 & 307 \\
 \hline
 \cite{sabate2020solving} & Y & 1 & 0.3023886 & 3.30E-03 & 0.3019783 & 8.20E-03 & 28 \\
 \hline
