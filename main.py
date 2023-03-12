@@ -15,6 +15,10 @@ class FullModel(tf.keras.Model):
         super(FullModel, self).__init__()
         self.config = config
         self.eqn = eqn
+        self.use_lstm = config.use_lstm
+        self.lstm_net = [
+            tf.keras.layers.LSTM(self.config.dim, return_sequences=True, return_state=True) for _ in range(3)
+        ]
         self.subnet = [FeedForwardSubNet(config, eqn)
                       for _ in range(config.N-1)]
         y0 = tf.Variable(tf.random_uniform_initializer()(
@@ -33,6 +37,12 @@ class FullModel(tf.keras.Model):
             self.subnet.append([y0, z0, g0])
 
     def __call__(self, x, training, nn_type, idx):
+        if self.use_lstm:
+            # LSTM net maps batch_size x time_steps x dim -> batch_size x time_steps x dim
+            # But we are only interested in the output of last time step
+            nn_type_idx = {'y': 0, 'z': 1, 'g': 2}[nn_type]
+            lstm_hidden = self.lstm_net[nn_type_idx](x)[0][:, -1, :]
+            x = tf.concat([x[:, -1, :], lstm_hidden], axis=1)
         if nn_type=='y':
             if idx==(self.config.N-1):
                 return self.subnet[idx][0]
@@ -57,7 +67,16 @@ class FullModel(tf.keras.Model):
         # the last model is not NN, hence no initialization is needed
         if idx==(self.config.N-1): return
 
-        x = tf.zeros([1, self.config.dim*(self.config.N-idx)])
+        if self.use_lstm:
+            lstm_size = self.config.dim
+            x = tf.zeros([1, 1, lstm_size])
+            self.lstm_net[0](x)
+            self.lstm_net[1](x)
+            self.lstm_net[2](x)
+            fnn_size = 2 * self.config.dim
+        else:
+            fnn_size = self.config.dim*(self.config.N-idx)
+        x = tf.zeros([1, fnn_size])
         self.subnet[idx](x, False, 0)
 
         if self.eqn.ppde_type == 'semilinear' or \
@@ -149,16 +168,24 @@ class Equation:
         """Simulate forward SDE."""
         x = [self.x_init*tf.ones((self.config.batch_size,
                 self.config.dim), dtype=self.config.dtype)]
+        dw = []
         for _ in range(n + 1):
-            dw = tf.random.normal((self.config.batch_size,
-                self.config.dim), stddev=self.config.sqrt_delta_t,
-                dtype=self.config.dtype)
+            dw.append(
+                tf.random.normal(
+                    (self.config.batch_size, self.config.dim),
+                    stddev=self.config.sqrt_delta_t,
+                    dtype=self.config.dtype
+                )
+            )
             # squeeze used because matmul produces dim of d*1
             # while the rest are d
-            x.append(x[-1] + self.b(x[-1]) * self.config.delta_t
-                    + tf.squeeze(tf.matmul(self.sigma(x[-1]),
-                        tf.expand_dims(dw, -1)), -1))
+            x.append(
+                x[-1]
+                + self.b(x[-1]) * self.config.delta_t
+                + tf.squeeze(tf.matmul(self.sigma(x[-1]), tf.expand_dims(dw[-1], -1)), -1)
+            )
         x = tf.stack(x, axis=1)
+        dw = tf.stack(dw, axis=1)
         return x, dw
 
     def f(self, x, y, z, gamma):
@@ -340,10 +367,12 @@ class PPDESolver:
 
     def train_step(self, idx):
         x, dw = self.eqn.sde(self.config.N-idx-1)
-        trainable_var = self.model.subnet.trainable_variables
+        if idx == 0:
+            trainable_var = self.model.subnet[idx].trainable_variables + self.model.lstm_net.trainable_variables
+        else:
+            trainable_var = self.model.subnet[idx].trainable_variables
         with tf.GradientTape(persistent=True) as tape:
-        # with tf.GradientTape() as tape:
-            loss, v0 = self.loss_fn(x, dw, idx, training=True)
+            loss, v0 = self.loss_fn(x, dw[:, -1, :], idx, training=True)
         grads = tape.gradient(loss, trainable_var)
         del tape
 
@@ -479,7 +508,7 @@ class Config:
     """Configurations for defining the problem and the solver."""
     def __init__(self, dim, T, N, dtype, batch_size, train_steps,
             lr_boundaries, lr_values, eqn_name, var_reduction,
-            y_neurons, z_neurons, g_neurons):
+            y_neurons, z_neurons, g_neurons, use_lstm):
         self.dim = dim
         self.T = T
         self.N = N
@@ -495,6 +524,7 @@ class Config:
         self.y_neurons = y_neurons
         self.z_neurons = z_neurons
         self.g_neurons = g_neurons
+        self.use_lstm  = use_lstm
 
 
 ########## Section main ####################
@@ -530,7 +560,7 @@ def simulate_close_form(eqn_name, T=0.1):
             tf.random.set_seed(run)
 
             t_0 = time.time()
-            x, dw = eqn.sde(N - 1)
+            x, _ = eqn.sde(N - 1)
             v0 = tf.reduce_mean(eqn.phi(x)).numpy() * np.exp(-eqn.r * T)
             t_1 = time.time()
             _file.write('%i, %f, %i, %i, %f, %f\n'
@@ -538,7 +568,7 @@ def simulate_close_form(eqn_name, T=0.1):
             print(d, T, N, run, v0, t_1 - t_0)
 
 
-def main(eqn_name, var_reduction, T=0.1):
+def main(eqn_name, var_reduction, use_lstm=False, T=0.1):
     N = int(T/.01)
     # float64 for a better precision, float32 for smaller memory
     dtype = tf.float32
@@ -552,6 +582,7 @@ def main(eqn_name, var_reduction, T=0.1):
 
     expr_name = 'logs/'
     if not var_reduction: expr_name += 'no_'
+    if use_lstm: expr_name += 'lstm_'
     expr_name += 'var_reduction_'
     expr_name += eqn_name
     expr_name += f'_T_{T}.csv'
@@ -568,7 +599,7 @@ def main(eqn_name, var_reduction, T=0.1):
 
         config = Config(d, T, N, dtype, batch_size, train_steps,
                     lr_boundaries, lr_values, eqn_name, var_reduction,
-                    y_neurons, z_neurons, g_neurons)
+                    y_neurons, z_neurons, g_neurons, use_lstm=use_lstm)
         eqn = globals()[eqn_name](config)
 
         # 10 independent runs
@@ -593,8 +624,13 @@ if __name__ == '__main__':
     simulate_close_form('BarrierOption')
     # choice of ControlProblem, AsianOption, and BarrierOption
     # for other problems, add a new class under Section equation
-    main('AsianOption', False, T=1)
-    main('AsianOption', False)
-    main('BarrierOption', False)
-    main('ControlProblem', True)
-    main('ControlProblem', False)
+    main('AsianOption',    var_reduction=False, use_lstm=True, T=1)
+    main('AsianOption',    var_reduction=False, use_lstm=True)
+    main('BarrierOption',  var_reduction=False, use_lstm=True)
+    main('ControlProblem', var_reduction=True,  use_lstm=True)
+    main('ControlProblem', var_reduction=False, use_lstm=True)
+    main('AsianOption',    var_reduction=False, T=1)
+    main('AsianOption',    var_reduction=False)
+    main('BarrierOption',  var_reduction=False)
+    main('ControlProblem', var_reduction=True)
+    main('ControlProblem', var_reduction=False)
