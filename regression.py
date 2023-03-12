@@ -121,7 +121,7 @@ def phi(x, feature):
         # average along the dimension axis
         x = np.mean(x, axis=1, keepdims=True)
         up_flag = B - feature
-        return np.where(up_flag>0, x-K, np.zeros_like(x))
+        return np.where(np.logical_and(up_flag > 0, x-K > 0), x-K, np.zeros_like(x))
 
 
 def f(_d, x, feature, y, z, gamma):

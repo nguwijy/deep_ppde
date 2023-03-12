@@ -160,7 +160,7 @@ def phi(apath):
         reduced_x = tf.reduce_mean(apath, 2)
         reduced_term = reduced_x[:, -1] - K
         up_flag = B - tf.reduce_max(reduced_x, 1)
-        return tf.where(up_flag>0, reduced_term, tf.zeros_like(reduced_term))
+        return tf.where(tf.math.logical_and(up_flag > 0, reduced_term > 0), reduced_term, tf.zeros_like(reduced_term))
     elif which_type == 'galerkin_asian':
         K = 0.7
         # first average along the dimension axis

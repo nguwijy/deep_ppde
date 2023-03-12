@@ -35,7 +35,7 @@ class Barrier(BaseOption):
             basket = torch.mean(x,2) # (batch_size, N)
             reduced_term = basket[:,-1] - 0.7 # (batch_size)
             up_flag = 1.2 - torch.max(basket, 1)[0] # (batch_size)
-        payoff = torch.where(up_flag>0, reduced_term, torch.zeros_like(reduced_term))
+        payoff = torch.where(torch.logical_and(up_flag > 0, reduced_term > 0), reduced_term, torch.zeros_like(reduced_term))
         return payoff.unsqueeze(1) # (batch_size, 1)
 
 class Asian(BaseOption):

@@ -297,7 +297,7 @@ class BarrierOption(Equation):
         reduced_x = tf.reduce_mean(x, 2)
         reduced_term = reduced_x[:, -1] - self.K
         up_flag = self.B - tf.reduce_max(reduced_x, 1)
-        return tf.expand_dims(tf.where(up_flag>0, reduced_term,
+        return tf.expand_dims(tf.where(tf.math.logical_and(up_flag > 0, reduced_term > 0), reduced_term,
             tf.zeros_like(reduced_term)), -1)
 
 
