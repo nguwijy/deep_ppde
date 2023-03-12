@@ -582,8 +582,8 @@ def main(eqn_name, var_reduction, use_lstm=False, T=0.1):
 
     expr_name = 'logs/'
     if not var_reduction: expr_name += 'no_'
-    if use_lstm: expr_name += 'lstm_'
     expr_name += 'var_reduction_'
+    if use_lstm: expr_name += 'lstm_'
     expr_name += eqn_name
     expr_name += f'_T_{T}.csv'
 
