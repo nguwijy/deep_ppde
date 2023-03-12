@@ -1,0 +1,9 @@
+matplotlib~=3.7.1
+scipy~=1.10.1
+tqdm~=4.65.0
+notebook~=6.4.11
+tensorflow~=2.11.0
+
+# torch with cuda113
+--extra-index-url https://download.pytorch.org/whl/cu113
+torch==1.11.0+cu113
