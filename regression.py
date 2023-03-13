@@ -223,14 +223,14 @@ def sde(_d, batch_size, n):
 # -------------------- main script starts heres --------------------------------
 batch_size = 10000
 
+T = 0.1
 for which_type in [ 'xiaolu_asian', 'xiaolu_barrier', 'xiaolu_control' ]:
-    _file = open('logs/' + which_type + '.csv', 'w')
+    _file = open(f'logs/{which_type}_T_{T}.csv', 'w')
     _file.write('d,T,N,run,y0,runtime\n')
     print(which_type)
 
     for d in [1, 10, 100]:
         for N in [10]:
-            T = 0.1
             for run in range(10):
                 t_0 = time.time()
                 if which_type == 'xiaolu_control':
@@ -247,13 +247,12 @@ for which_type in [ 'xiaolu_asian', 'xiaolu_barrier', 'xiaolu_control' ]:
     _file.close()
 
 for which_type in [ 'xiaolu_asian', 'xiaolu_barrier', 'xiaolu_control' ]:
-    _file = open('logs/no_var_reduction_' + which_type + '.csv', 'w')
+    _file = open(f'logs/no_var_reduction_{which_type}_T_{T}.csv', 'w')
     _file.write('d,T,N,run,y0,runtime\n')
     print(which_type)
 
     for d in [1, 10, 100]:
         for N in [10]:
-            T = 0.1
             for run in range(10):
                 t_0 = time.time()
                 if which_type == 'xiaolu_control':

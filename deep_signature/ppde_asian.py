@@ -106,7 +106,7 @@ if __name__ == "__main__":
     if not os.path.exists(results_path):
         os.makedirs(results_path)
 
-    logfile = "logs/signature_asian.csv"
+    logfile = f"logs/signature_asian_{args.T}.csv"
     with open(logfile, "w") as f:
         f.write('d,T,N,run,y0,runtime\n')
 

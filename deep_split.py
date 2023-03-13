@@ -162,7 +162,8 @@ lr_values = [0.1, 0.01, 0.001]
 # lr_boundaries = [250, 500, 750]
 # lr_values = [0.1, 0.01, 0.001, 0.0001]
 
-_file = open('logs/ariel_asian.csv', 'w')
+T = 0.1
+_file = open(f'logs/ariel_asian_T_{T}.csv', 'w')
 _file.write('d,T,N,run,y0,runtime\n')
 
 # exact_sol = 0.3001998
@@ -173,7 +174,6 @@ for d in [1]:
     for N in [10]:
 
         # T = N / 24.
-        T = 0.1
 
         for run in range(10):
 

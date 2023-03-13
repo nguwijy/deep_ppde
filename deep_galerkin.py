@@ -284,7 +284,7 @@ Epoch = 1000
 for which_type in [ 'galerkin_asian', 'galerkin_barrier', 'galerkin_control' ]:
 
     print(which_type)
-    _file = open('logs/' + which_type + '.csv', 'w')
+    _file = open(f'logs/{which_type}_T_{T}.csv', 'w')
     _file.write('d,T,N,run,y0,runtime\n')
 
     for d in [1, 10]:
