@@ -551,7 +551,7 @@ def simulate_close_form(eqn_name, T=0.1):
     for d in d_arrays:
         config = Config(d, T, N, dtype, batch_size, train_steps,
                         lr_boundaries, lr_values, eqn_name, False,
-                        1, 1, 1)
+                        1, 1, 1, use_lstm=False)
         eqn = globals()[eqn_name](config)
 
         # 10 independent runs
