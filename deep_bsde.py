@@ -16,11 +16,11 @@ tf.disable_v2_behavior()
 
 class SolveAllenCahn(object):
     """The fully-connected neural network model."""
-    def __init__(self, sess, dim):
+    def __init__(self, sess, dim, T):
         self.sess = sess
         # parameters for the PDE
         self.d = dim
-        self.T = 0.1
+        self.T = T
         # parameters for the algorithm
         self.n_time = 10
         self.n_layer = 4
@@ -239,13 +239,13 @@ class SolveAllenCahn(object):
             y.set_shape(x.get_shape())
             return y
 
-def main(sess_iter, dim):
+def main(sess_iter, dim, T):
     # exact_sol = 0.3001998
     tf.reset_default_graph()
     with tf.Session() as sess:
         tf.set_random_seed(1)
         print("Begin to solve...")
-        model = SolveAllenCahn(sess, dim)
+        model = SolveAllenCahn(sess, dim, T=T)
         model.build()
         model.train()
         output = np.zeros((len(model.init_history), 4))
@@ -260,9 +260,10 @@ def main(sess_iter, dim):
 
 if __name__ == '__main__':
     np.random.seed(1)
-    _file = open('logs/weinan_asian.csv', 'w')
+    T = 0.1
+    _file = open(f'logs/weinan_asian_T_{T}.csv', 'w')
     _file.write('d,run,loss,y0,runtime\n')
 
     for dd in [1]:
         for sess_iter in range(10):
-            main(sess_iter, dd)
+            main(sess_iter, dd, T)
