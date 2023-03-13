@@ -95,6 +95,7 @@ if __name__ == "__main__":
 
 
     args = parser.parse_args()
+    args.n_steps = int(args.T / .01)
 
     if torch.cuda.is_available() and args.use_cuda:
         device = "cuda:{}".format(args.device)

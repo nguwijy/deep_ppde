@@ -229,20 +229,20 @@ for which_type in [ 'xiaolu_asian', 'xiaolu_barrier', 'xiaolu_control' ]:
     _file.write('d,T,N,run,y0,runtime\n')
     print(which_type)
 
-    for d in [1, 10, 100]:
-        for N in [10]:
-            for run in range(10):
-                t_0 = time.time()
-                if which_type == 'xiaolu_control':
-                    y0 = simulate('fully-nonlinear_var_reduction', T, N, d, sde, phi, f, batch_size)
-                elif which_type == 'xiaolu_barrier' or which_type == 'xiaolu_asian':
-                    y0 = simulate('semilinear_var_reduction', T, N, d, sde, phi, f, batch_size)
-                t_1 = time.time()
+    for d in [1]:
+        N = int(T / .01)
+        for run in range(10):
+            t_0 = time.time()
+            if which_type == 'xiaolu_control':
+                y0 = simulate('fully-nonlinear_var_reduction', T, N, d, sde, phi, f, batch_size)
+            elif which_type == 'xiaolu_barrier' or which_type == 'xiaolu_asian':
+                y0 = simulate('semilinear_var_reduction', T, N, d, sde, phi, f, batch_size)
+            t_1 = time.time()
 
-                _file.write('%i, %f, %i, %i, %f, %f\n'
-                            % (d, T, N, run, y0[0,0], t_1 - t_0))
-                _file.flush()
-                print(d, T, N, run, y0[0,0], t_1 - t_0)
+            _file.write('%i, %f, %i, %i, %f, %f\n'
+                        % (d, T, N, run, y0[0,0], t_1 - t_0))
+            _file.flush()
+            print(d, T, N, run, y0[0,0], t_1 - t_0)
 
     _file.close()
 
@@ -252,18 +252,18 @@ for which_type in [ 'xiaolu_asian', 'xiaolu_barrier', 'xiaolu_control' ]:
     print(which_type)
 
     for d in [1, 10, 100]:
-        for N in [10]:
-            for run in range(10):
-                t_0 = time.time()
-                if which_type == 'xiaolu_control':
-                    y0 = simulate('fully-nonlinear', T, N, d, sde, phi, f, batch_size)
-                elif which_type == 'xiaolu_barrier' or which_type == 'xiaolu_asian':
-                    y0 = simulate('semilinear', T, N, d, sde, phi, f, batch_size)
-                t_1 = time.time()
+        N = int(T / .01)
+        for run in range(10):
+            t_0 = time.time()
+            if which_type == 'xiaolu_control':
+                y0 = simulate('fully-nonlinear', T, N, d, sde, phi, f, batch_size)
+            elif which_type == 'xiaolu_barrier' or which_type == 'xiaolu_asian':
+                y0 = simulate('semilinear', T, N, d, sde, phi, f, batch_size)
+            t_1 = time.time()
 
-                _file.write('%i, %f, %i, %i, %f, %f\n'
-                            % (d, T, N, run, y0[0,0], t_1 - t_0))
-                _file.flush()
-                print(d, T, N, run, y0[0,0], t_1 - t_0)
+            _file.write('%i, %f, %i, %i, %f, %f\n'
+                        % (d, T, N, run, y0[0,0], t_1 - t_0))
+            _file.flush()
+            print(d, T, N, run, y0[0,0], t_1 - t_0)
 
     _file.close()

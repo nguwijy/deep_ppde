@@ -170,29 +170,26 @@ _file.write('d,T,N,run,y0,runtime\n')
 for d in [1]:
 
     neurons = [d + 10, d + 10, 1]
+    N = int(T / .01)
 
-    for N in [10]:
+    for run in range(10):
 
-        # T = N / 24.
+        # path = '/tmp/hjb'
+        path = os.path.join(os.getcwd(),'tmp')
+        if os.path.exists(path):
+            shutil.rmtree(path)
+        os.mkdir(path)
 
-        for run in range(10):
+        t_0 = time.time()
+        v_n = simulate(T, N, d, sde, phi, f, neurons,
+                       train_steps, batch_size,
+                       lr_boundaries, lr_values, path)
+        t_1 = time.time()
 
-            # path = '/tmp/hjb'
-            path = os.path.join(os.getcwd(),'tmp')
-            if os.path.exists(path):
-                shutil.rmtree(path)
-            os.mkdir(path)
-
-            t_0 = time.time()
-            v_n = simulate(T, N, d, sde, phi, f, neurons,
-                           train_steps, batch_size,
-                           lr_boundaries, lr_values, path)
-            t_1 = time.time()
-
-            _file.write('%i, %f, %i, %i, %f, %f\n'
-                        % (d, T, N, run, v_n, t_1 - t_0))
-            _file.flush()
-            print(d, T, N, run, v_n, t_1 - t_0)
+        _file.write('%i, %f, %i, %i, %f, %f\n'
+                    % (d, T, N, run, v_n, t_1 - t_0))
+        _file.flush()
+        print(d, T, N, run, v_n, t_1 - t_0)
 
 _file.close()
 

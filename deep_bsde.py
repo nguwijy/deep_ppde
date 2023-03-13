@@ -22,7 +22,7 @@ class SolveAllenCahn(object):
         self.d = dim
         self.T = T
         # parameters for the algorithm
-        self.n_time = 10
+        self.n_time = int(T / .01)
         self.n_layer = 4
         self.n_neuron = [self.d, self.d+10, self.d+10, self.d]
         self.batch_size = 64
