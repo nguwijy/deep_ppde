@@ -1,0 +1,96 @@
+\hline
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 1 & 0.999331 & 1.52E-03 & 1 & 1.37E-03 & 61 \\
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 10 & 0.9939934 & 2.99E-03 & 1 & 6.01E-03 & 62 \\
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 100 & 0.970783 & 1.89E-02 & 1 & 3.01E-02 & 81 \\
+\hline
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 1.000805 & 9.61E-05 & 1 & 8.05E-04 & 62 \\
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 10 & 1.000914 & 2.19E-04 & 1 & 9.14E-04 & 63 \\
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 100 & 1.002474 & 5.01E-04 & 1 & 2.47E-03 & 83 \\
+\hline
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 1.075509 & 2.59E-02 & 1 & 7.55E-02 & 1 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 10 & 2.348812 & 4.31E-01 & 1 & 1.35E+00 & 2 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 100 & 328.2853 & 8.81E+01 & 1 & 3.27E+02 & 102 \\
+\hline
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 1 & 0.9999463 & 4.72E-05 & 1 & 5.47E-05 & 1 \\
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 10 & 1.000166 & 6.00E-06 & 1 & 1.66E-04 & 2 \\
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 100 & 26.12039 & 7.36E+00 & 1 & 2.51E+01 & 104 \\
+\hline
+\cite{saporito2020pdgm} & Y & 1 & 1.000852 & 1.12E-02 & 1 & 9.42E-03 & 26 \\
+\cite{saporito2020pdgm} & Y & 10 & 0.9537241 & 1.63E-01 & 1 & 1.06E-01 & 517 \\
+\hline
+
+
+
+\hline
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 1 & 0.3008159 & 1.29E-03 & 0.3002021 & 3.83E-03 & 31 \\
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 10 & 0.3010345 & 4.08E-04 & 0.3002024 & 2.77E-03 & 31 \\
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 100 & 0.3006346 & 1.28E-04 & 0.3001993 & 1.45E-03 & 35 \\
+\hline
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 0.3008159 & 1.29E-03 & 0.3002021 & 3.83E-03 & 31 \\
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 10 & 0.3010345 & 4.08E-04 & 0.3002024 & 2.77E-03 & 31 \\
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 100 & 0.3006346 & 1.28E-04 & 0.3001993 & 1.45E-03 & 35 \\
+\hline
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3002768 & 2.23E-04 & 0.3002021 & 4.77E-04 & 1 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 10 & 0.3002137 & 6.07E-05 & 0.3002024 & 1.70E-04 & 2 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 100 & 0.3001923 & 2.65E-05 & 0.3001993 & 7.50E-05 & 23 \\
+\hline
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 1 & 0.3002768 & 2.23E-04 & 0.3002021 & 4.77E-04 & 1 \\
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 10 & 0.3002137 & 6.07E-05 & 0.3002024 & 1.70E-04 & 2 \\
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 100 & 0.3001923 & 2.65E-05 & 0.3001993 & 7.50E-05 & 23 \\
+\hline
+\cite{saporito2020pdgm} & Y & 1 & 0.3002544 & 2.43E-03 & 0.3002021 & 6.01E-03 & 25 \\
+\cite{saporito2020pdgm} & Y & 10 & 0.304033 & 1.05E-02 & 0.3002024 & 2.97E-02 & 522 \\
+\hline
+\cite{sabate2020solving} & Y & 1 & 0.3002722 & 1.24E-03 & 0.3002021 & 3.51E-03 & 10 \\
+\cite{sabate2020solving} & Y & 10 & 0.3002251 & 2.11E-03 & 0.3002024 & 5.80E-03 & 411 \\
+\hline
+\cite{han2018solving} & Y & 1 & 0.3002467 & 2.31E-06 & 0.3002021 & 1.49E-04 & 32 \\
+\hline
+\cite{beck2019deep} & Y & 1 & 0.3002827 & 4.21E-04 & 0.3002021 & 1.12E-03 & 20 \\
+\hline
+
+
+
+\hline
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 1 & 0.3080988 & 2.15E-02 & 0.3019783 & 5.96E-02 & 916 \\
+\hline
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 0.3080988 & 2.15E-02 & 0.3019783 & 5.96E-02 & 916 \\
+\hline
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3019605 & 6.09E-04 & 0.3019783 & 1.79E-03 & 11 \\
+\hline
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 1 & 0.3019605 & 6.09E-04 & 0.3019783 & 1.79E-03 & 11 \\
+\hline
+\cite{saporito2020pdgm} & Y & 1 & 0.3099371 & 8.49E-03 & 0.3019783 & 2.98E-02 & 307 \\
+\hline
+\cite{sabate2020solving} & Y & 1 & 0.3023886 & 3.30E-03 & 0.3019783 & 8.20E-03 & 28 \\
+\hline
+\cite{han2018solving} & Y & 1 & 0.3020448 & 3.47E-05 & 0.3019783 & 2.20E-04 & 1028 \\
+\hline
+\cite{beck2019deep} & Y & 1 & 0.3036672 & 3.88E-03 & 0.3019783 & 1.09E-02 & 431 \\
+\hline
+
+
+
+\hline
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 1 & 0.3019161 & 1.97E-03 & 0.3007008 & 5.92E-03 & 31 \\
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 10 & 0.3017532 & 5.44E-04 & 0.3006973 & 3.51E-03 & 31 \\
+Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 100 & 0.3016375 & 1.98E-04 & 0.3007003 & 3.12E-03 & 35 \\
+\hline
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 0.3019161 & 1.97E-03 & 0.3007008 & 5.92E-03 & 31 \\
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 10 & 0.3017532 & 5.44E-04 & 0.3006973 & 3.51E-03 & 31 \\
+Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 100 & 0.3016375 & 1.98E-04 & 0.3007003 & 3.12E-03 & 35 \\
+\hline
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3006035 & 3.69E-04 & 0.3007008 & 1.09E-03 & 1 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 10 & 0.3006808 & 1.29E-04 & 0.3006973 & 3.45E-04 & 2 \\
+\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 100 & 0.3005694 & 6.94E-03 & 0.3007003 & 1.66E-02 & 21 \\
+\hline
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 1 & 0.3006035 & 3.69E-04 & 0.3007008 & 1.09E-03 & 1 \\
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 10 & 0.3006808 & 1.29E-04 & 0.3006973 & 3.45E-04 & 2 \\
+\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 100 & 0.3005694 & 6.94E-03 & 0.3007003 & 1.66E-02 & 21 \\
+\hline
+\cite{saporito2020pdgm} & Y & 1 & 0.3019159 & 2.24E-03 & 0.3007008 & 6.98E-03 & 26 \\
+\cite{saporito2020pdgm} & Y & 10 & 0.3030515 & 1.03E-02 & 0.3006973 & 2.71E-02 & 519 \\
+\hline
+\cite{sabate2020solving} & Y & 1 & 0.3009402 & 2.18E-03 & 0.3007008 & 5.75E-03 & 8 \\
+\cite{sabate2020solving} & Y & 10 & 0.301107 & 3.15E-03 & 0.3006973 & 7.35E-03 & 225 \\
+\hline
