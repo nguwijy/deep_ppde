@@ -28,33 +28,39 @@ exact_sol_control = 1
 
 control_csv = [ 'no_var_reduction_ControlProblem_T_0.1.csv',
                 'var_reduction_ControlProblem_T_0.1.csv',
-                'no_var_reduction_xiaolu_control.csv', 'xiaolu_control.csv',
-                'galerkin_control.csv' ]
+                'var_reduction_lstm_ControlProblem_T_0.1.csv',
+                'no_var_reduction_xiaolu_control_T_0.1.csv', 'xiaolu_control_T_0.1.csv',
+                'galerkin_control_T_0.1.csv' ]
 asian_csv = [ 'no_var_reduction_AsianOption_T_0.1.csv',
               'no_var_reduction_AsianOption_T_0.1.csv',  # not used
-              'xiaolu_asian.csv', 'xiaolu_asian.csv',
-              'galerkin_asian.csv', 'signature_asian.csv',
-              'weinan_asian.csv', 'ariel_asian.csv' ]
+              'no_var_reduction_lstm_AsianOption_T_0.1.csv',
+              'xiaolu_asian_T_0.1.csv', 'xiaolu_asian_T_0.1.csv',
+              'galerkin_asian_T_0.1.csv', 'signature_asian_T_0.1.csv',
+              'weinan_asian_T_0.1.csv', 'ariel_asian_T_0.1.csv' ]
 asian_csv_T_1 = [ 'no_var_reduction_AsianOption_T_1.csv',
                 'no_var_reduction_AsianOption_T_1.csv',  # not used
+                'no_var_reduction_lstm_AsianOption_T_1.csv',
                 'xiaolu_asian_T_1.csv', 'xiaolu_asian_T_1.csv',
                 'galerkin_asian_T_1.csv', 'signature_asian_T_1.csv',
                 'weinan_asian_T_1.csv', 'ariel_asian_T_1.csv' ]
 barrier_csv = [ 'no_var_reduction_BarrierOption_T_0.1.csv',
                 'no_var_reduction_BarrierOption_T_0.1.csv',  # not used
-                'xiaolu_barrier.csv', 'xiaolu_barrier.csv',
-                'galerkin_barrier.csv', 'signature_barrier.csv' ]
+                'no_var_reduction_lstm_BarrierOption_T_0.1.csv',
+                'xiaolu_barrier_T_0.1.csv', 'xiaolu_barrier_T_0.1.csv',
+                'galerkin_barrier_T_0.1.csv', 'signature_barrier_T_0.1.csv' ]
 
 scheme_name = [ 'Deep PPDE using \eqref{eq:deep_scheme_nonlinear}',
                 'Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear}',
+                'Deep PPDE with LSTM',
                 '\cite{ren2017convergence} using \eqref{eq:probabilistic_scheme}',
                 '\cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme}',
                 '\cite{saporito2020pdgm}',
                 '\cite{sabate2020solving}',
                 '\cite{han2018solving}',
                 '\cite{beck2019deep}' ]
-deep_or_not = [ 'Y', 'Y', 'N', 'N', 'Y', 'Y', 'Y', 'Y' ]
+deep_or_not = [ 'Y', 'Y', 'Y', 'N', 'N', 'Y', 'Y', 'Y', 'Y' ]
 
+res = []
 # first line, use write instead of append
 with open(file_log_path, 'w') as f:
     f.write('\hline\n')
@@ -64,7 +70,7 @@ for ii in range(len(control_csv)):
     deep = deep_or_not[ii]
     for dd in [1, 10, 100]:
         # saporito and zhang, sabate et al do not have result for 100-dimensional
-        if dd==100 and (ii==4 or ii==5):   continue
+        if dd==100 and (ii==5 or ii==6):   continue
 
         df = pd.read_csv(csv)
         df = df.loc[df['d'] == dd]
@@ -76,6 +82,9 @@ for ii in range(len(control_csv)):
         # error_sd = df['relative_error'].std()
         avg_runtime = df['runtime'].mean()
         with open(file_log_path, 'a') as f:
+            res.append([
+                'Control', name, deep, dd, L1, sd, exact_sol_control, error_L1, int(round(avg_runtime))
+            ])
             f.write('{:s} & {:s} & {:d} & {:.7g} & {:.2E} & {:.7g} & {:.2E} & {:d} \\\\\n'
                     .format(name, deep, dd, L1, sd, exact_sol_control, error_L1,
                     int(round(avg_runtime))))
@@ -91,9 +100,9 @@ for ii in range(len(asian_csv)):
     deep = deep_or_not[ii]
     for dd in [1, 10, 100]:
         # saporito and zhang, sabate et al do not have result for 100-dimensional
-        if dd==100 and (ii==4 or ii==5):   continue
+        if dd==100 and (ii==5 or ii==6):   continue
         # weinan and ariel only have result for 1-dimensional
-        if (dd==100 or dd==10) and (ii==6 or ii==7):   continue
+        if (dd==100 or dd==10) and (ii==7 or ii==8):   continue
 
         df = pd.read_csv(csv)
         df = df.loc[df['d'] == dd]
@@ -105,6 +114,9 @@ for ii in range(len(asian_csv)):
         error_sd = df['relative_error'].std()
         avg_runtime = df['runtime'].mean()
         with open(file_log_path, 'a') as f:
+            res.append([
+                'Asian, T=.1', name, deep, dd, L1, sd, exact_sol_control, error_L1, int(round(avg_runtime))
+            ])
             f.write('{:s} & {:s} & {:d} & {:.7g} & {:.2E} & {:.7g} & {:.2E} & {:d} \\\\\n'
                     .format(name, deep, dd, L1, sd, exact_sol_asian[dd], error_L1,
                             int(round(avg_runtime))))
@@ -129,6 +141,9 @@ for ii in range(len(asian_csv_T_1)):
         error_sd = df['relative_error'].std()
         avg_runtime = df['runtime'].mean()
         with open(file_log_path, 'a') as f:
+            res.append([
+                'Asian, T=1', name, deep, dd, L1, sd, exact_sol_control, error_L1, int(round(avg_runtime))
+            ])
             f.write('{:s} & {:s} & {:d} & {:.7g} & {:.2E} & {:.7g} & {:.2E} & {:d} \\\\\n'
                     .format(name, deep, dd, L1, sd, exact_sol_asian_T_1[dd], error_L1,
                     int(round(avg_runtime))))
@@ -144,7 +159,7 @@ for ii in range(len(barrier_csv)):
     deep = deep_or_not[ii]
     for dd in [1, 10, 100]:
         # saporito and zhang, sabate et al do not have result for 100-dimensional
-        if dd==100 and (ii==4 or ii==5):   continue
+        if dd==100 and (ii==5 or ii==6):   continue
 
         df = pd.read_csv(csv)
         df = df.loc[df['d'] == dd]
@@ -156,8 +171,15 @@ for ii in range(len(barrier_csv)):
         error_sd = df['relative_error'].std()
         avg_runtime = df['runtime'].mean()
         with open(file_log_path, 'a') as f:
+            res.append([
+                'Barrier', name, deep, dd, L1, sd, exact_sol_control, error_L1, int(round(avg_runtime))
+            ])
             f.write('{:s} & {:s} & {:d} & {:.7g} & {:.2E} & {:.7g} & {:.2E} & {:d} \\\\\n'
                     .format(name, deep, dd, L1, sd, exact_sol_barrier[dd], error_L1,
                     int(round(avg_runtime))))
     with open(file_log_path, 'a') as f:
         f.write('\hline\n')
+
+res = pd.DataFrame(res, columns=[
+    'problem_name', 'scheme_name', 'deep', 'dim', 'mean', 'std', 'exact', 'l1_error', 'runtime'
+])

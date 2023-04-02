@@ -7,6 +7,10 @@ Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 1.000805 
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 10 & 1.000914 & 2.19E-04 & 1 & 9.14E-04 & 63 \\
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 100 & 1.002474 & 5.01E-04 & 1 & 2.47E-03 & 83 \\
 \hline
+Deep PPDE with LSTM & Y & 1 & 0 & 0.00E+00 & 1 & 1.00E+00 & 999999 \\
+Deep PPDE with LSTM & Y & 10 & 0 & 0.00E+00 & 1 & 1.00E+00 & 999999 \\
+Deep PPDE with LSTM & Y & 100 & 0 & 0.00E+00 & 1 & 1.00E+00 & 999999 \\
+\hline
 \cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 1.075509 & 2.59E-02 & 1 & 7.55E-02 & 1 \\
 \cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 10 & 2.348812 & 4.31E-01 & 1 & 1.35E+00 & 2 \\
 \cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 100 & 328.2853 & 8.81E+01 & 1 & 3.27E+02 & 102 \\
@@ -29,6 +33,10 @@ Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 100 & 0.3006346 & 1.28E-0
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 0.3008159 & 1.29E-03 & 0.3002021 & 3.83E-03 & 31 \\
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 10 & 0.3010345 & 4.08E-04 & 0.3002024 & 2.77E-03 & 31 \\
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 100 & 0.3006346 & 1.28E-04 & 0.3001993 & 1.45E-03 & 35 \\
+\hline
+Deep PPDE with LSTM & Y & 1 & 0.2993377 & 6.79E-03 & 0.3002021 & 1.29E-02 & 46 \\
+Deep PPDE with LSTM & Y & 10 & 0.3001024 & 1.06E-03 & 0.3002024 & 2.41E-03 & 52 \\
+Deep PPDE with LSTM & Y & 100 & 0.3003011 & 1.03E-04 & 0.3001993 & 3.83E-04 & 242 \\
 \hline
 \cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3002768 & 2.23E-04 & 0.3002021 & 4.77E-04 & 1 \\
 \cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 10 & 0.3002137 & 6.07E-05 & 0.3002024 & 1.70E-04 & 2 \\
@@ -56,6 +64,8 @@ Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 1 & 0.3080988 & 2.15E-02 
 \hline
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 0.3080988 & 2.15E-02 & 0.3019783 & 5.96E-02 & 916 \\
 \hline
+Deep PPDE with LSTM & Y & 1 & 0.303442 & 1.57E-02 & 0.3019783 & 3.89E-02 & 821 \\
+\hline
 \cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3019605 & 6.09E-04 & 0.3019783 & 1.79E-03 & 11 \\
 \hline
 \cite{ren2017convergence} using \eqref{eq:var_reduced_probabilistic_scheme} & N & 1 & 0.3019605 & 6.09E-04 & 0.3019783 & 1.79E-03 & 11 \\
@@ -79,6 +89,10 @@ Deep PPDE using \eqref{eq:deep_scheme_nonlinear} & Y & 100 & 0.3016375 & 1.98E-0
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 1 & 0.3019161 & 1.97E-03 & 0.3007008 & 5.92E-03 & 31 \\
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 10 & 0.3017532 & 5.44E-04 & 0.3006973 & 3.51E-03 & 31 \\
 Deep PPDE using \eqref{eq:var_reduced_deep_scheme_nonlinear} & Y & 100 & 0.3016375 & 1.98E-04 & 0.3007003 & 3.12E-03 & 35 \\
+\hline
+Deep PPDE with LSTM & Y & 1 & 0.3012828 & 1.90E-03 & 0.3007008 & 5.43E-03 & 40 \\
+Deep PPDE with LSTM & Y & 10 & 0.301574 & 8.74E-04 & 0.3006973 & 3.80E-03 & 49 \\
+Deep PPDE with LSTM & Y & 100 & 0.3011409 & 1.19E-04 & 0.3007003 & 1.47E-03 & 239 \\
 \hline
 \cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 1 & 0.3006035 & 3.69E-04 & 0.3007008 & 1.09E-03 & 1 \\
 \cite{ren2017convergence} using \eqref{eq:probabilistic_scheme} & N & 10 & 0.3006808 & 1.29E-04 & 0.3006973 & 3.45E-04 & 2 \\
