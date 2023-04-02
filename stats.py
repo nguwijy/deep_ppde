@@ -115,7 +115,7 @@ for ii in range(len(asian_csv)):
         avg_runtime = df['runtime'].mean()
         with open(file_log_path, 'a') as f:
             res.append([
-                'Asian, T=.1', name, deep, dd, L1, sd, exact_sol_control, error_L1, int(round(avg_runtime))
+                'Asian, T=.1', name, deep, dd, L1, sd, exact_sol_asian[dd], error_L1, int(round(avg_runtime))
             ])
             f.write('{:s} & {:s} & {:d} & {:.7g} & {:.2E} & {:.7g} & {:.2E} & {:d} \\\\\n'
                     .format(name, deep, dd, L1, sd, exact_sol_asian[dd], error_L1,
@@ -142,7 +142,7 @@ for ii in range(len(asian_csv_T_1)):
         avg_runtime = df['runtime'].mean()
         with open(file_log_path, 'a') as f:
             res.append([
-                'Asian, T=1', name, deep, dd, L1, sd, exact_sol_control, error_L1, int(round(avg_runtime))
+                'Asian, T=1', name, deep, dd, L1, sd, exact_sol_asian_T_1[dd], error_L1, int(round(avg_runtime))
             ])
             f.write('{:s} & {:s} & {:d} & {:.7g} & {:.2E} & {:.7g} & {:.2E} & {:d} \\\\\n'
                     .format(name, deep, dd, L1, sd, exact_sol_asian_T_1[dd], error_L1,
@@ -172,7 +172,7 @@ for ii in range(len(barrier_csv)):
         avg_runtime = df['runtime'].mean()
         with open(file_log_path, 'a') as f:
             res.append([
-                'Barrier', name, deep, dd, L1, sd, exact_sol_control, error_L1, int(round(avg_runtime))
+                'Barrier', name, deep, dd, L1, sd, exact_sol_barrier[dd], error_L1, int(round(avg_runtime))
             ])
             f.write('{:s} & {:s} & {:d} & {:.7g} & {:.2E} & {:.7g} & {:.2E} & {:d} \\\\\n'
                     .format(name, deep, dd, L1, sd, exact_sol_barrier[dd], error_L1,
