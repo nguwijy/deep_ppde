@@ -1,4 +1,7 @@
 import os
+
+import matplotlib.pyplot as plt
+import pandas as pd
 import tensorflow as tf
 import numpy as np
 import time
@@ -348,6 +351,21 @@ class PPDESolver:
         self.epsilon = 1e-8
         self.optimizer = None
 
+    def plt_stats(self):
+        x, _ = self.eqn.sde(self.config.N - 1)
+
+        stats = {
+            'mean': np.mean,
+            'std' : np.std,
+        }
+        for name, fun in stats.items():
+            nn       = [fun(self.model(x[:, :-(idx + 1), :], False, 'y', idx).numpy()) for idx in range(self.config.N - 1)]
+            terminal = [fun(self.eqn.phi(x[:, :(self.config.N + 1 - idx), :]).numpy()) for idx in range(self.config.N - 1)]
+            tt       = [self.config.T - self.config.delta_t * idx for idx in range(self.config.N - 1)]
+            pd.DataFrame({'t': tt, 'nn(x[:t])': nn, 'phi(x[:t])': terminal}).plot(x='t', y=['nn(x[:t])', 'phi(x[:t])'])
+            plt.title(f'{self.config.eqn_name}: {name} of output with batch size {len(x)}.')
+            plt.show()
+
     def train(self):
         for idx in range(self.config.N):
             # generate new graph using new idx with tf.function
@@ -610,6 +628,7 @@ def main(eqn_name, var_reduction, use_lstm=False, T=0.1):
             ppde_solver = PPDESolver(config, eqn)
             t_0 = time.time()
             ppde_solver.train()
+            ppde_solver.plt_stats()
             t_1 = time.time()
             _file.write('%i, %f, %i, %i, %f, %f\n'
                         % (d, T, N, run, ppde_solver.v0, t_1 - t_0))
